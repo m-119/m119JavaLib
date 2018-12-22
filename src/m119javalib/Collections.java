@@ -11,39 +11,32 @@ import java.util.ArrayList;
  *
  * @author JAG
  */
-
-
-
 public class Collections {
-    
+
     static private ArrayList<String> comments;
     static private ArrayList<String> strings;
-    
-    Collections(){}
-    
-    void collect(StringBuilder str)
-    {
-	
+
+    Collections() {
     }
-    
-    String getComment(int i)
-    {
+
+    void collect(StringBuilder str) {
+
+    }
+
+    String getComment(int i) {
 	return comments.get(i);
     }
-    
-    ArrayList<String> getComments()
-    {
+
+    ArrayList<String> getComments() {
 	return comments;
     }
-    
-    String getString(int i)
-    {
+
+    String getString(int i) {
 	return strings.get(i);
     }
-    
-    ArrayList<String> getStrings()
-    {
+
+    ArrayList<String> getStrings() {
 	return strings;
     }
-    
+
 }
