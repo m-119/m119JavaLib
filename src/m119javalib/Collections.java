@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class Collections {
 
-    static private ArrayList<String> comments;
-    static private ArrayList<String> strings;
+    static private ArrayList<String> comments = new ArrayList<String>();
+    static private ArrayList<String> strings = new ArrayList<String>();
+    
 
     Collections() {
 	//
@@ -24,19 +25,19 @@ public class Collections {
 
     }
 
-    String getComment(int i) {
+    static public String getComment(int i) {
 	return comments.get(i);
     }
 
-    ArrayList<String> getComments() {
+    static public ArrayList<String> getComments() {
 	return comments;
     }
 
-    String getString(int i) {
+    static String getString(int i) {
 	return strings.get(i);
     }
 
-    ArrayList<String> getStrings() {
+    static ArrayList<String> getStrings() {
 	return strings;
     }
 

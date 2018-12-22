@@ -14,17 +14,17 @@ import java.util.regex.Pattern;
  *
  * @author JAG
  */
-public class PreTraining {
+public class PrePreparation {
 
     //паттерны
     //начальная позиция
-    static Pattern p_start = Pattern.compile("(//|/\\*|\")", Pattern.MULTILINE);
+    static private Pattern p_start = Pattern.compile("(//|/\\*|\")", Pattern.MULTILINE);
     //однострочный комментарий
-    static Pattern p_csingle = Pattern.compile("[^\\\\]\n", Pattern.MULTILINE);
+    static private Pattern p_csingle = Pattern.compile("[^\\\\]\n", Pattern.MULTILINE);
     //многострочный комментарий
-    static Pattern p_cmulti = Pattern.compile("\\*/", Pattern.MULTILINE);
+    static private Pattern p_cmulti = Pattern.compile("\\*/", Pattern.MULTILINE);
     //строка
-    static Pattern p_string = Pattern.compile("[^\\\\]\"", Pattern.MULTILINE);
+    static private Pattern p_string = Pattern.compile("[^\\\\]\"", Pattern.MULTILINE);
 
     static void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
 	Matcher m_start = p_start.matcher(s);
@@ -45,41 +45,41 @@ public class PreTraining {
 		    current = m_start.start();
 		    start = current;
 		    m_csingle.find(current + m_start.group().length());
-		    current = m_csingle.end();
-		    end = current;
+		    end = m_csingle.end();
+		    com.add(s.substring(start, end));
 		    s.replace(start, end, "Ⓒ" + com.size() + "Ⓒ");
 		    break;
 		case "/*":
 		    current = m_start.start();
 		    start = current;
 		    m_cmulti.find(current + m_start.group().length());
-		    current = m_cmulti.end();
-		    end = current;
+		    end = m_cmulti.end();
+		    com.add(s.substring(start, end));
 		    s.replace(start, end, "Ⓒ" + com.size() + "Ⓒ");
 		    break;
 		case "\"":
 		    current = m_start.start();
 		    start = current;
 		    m_string.find(current + m_start.group().length());
-		    current = m_string.end();
-		    end = current;
+		    end = m_string.end();
+		    str.add(s.substring(start, end));
 		    s.replace(start, end, "Ⓣ" + str.size() + "Ⓣ");
 		    break;
 		default:
 		    break;
 	    }
-	    System.out.println(s.substring(start, end));
+	    //System.out.println(s.substring(start, end));
 	}
     }
 
     ;
 	
 	//тестовый метод
-	static void tcollect(StringBuilder s) {
+	void tcollect(StringBuilder s) {
 
     };
 	
-    PreTraining() {
+    PrePreparation() {
     };
 
 }
