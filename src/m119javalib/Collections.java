@@ -17,6 +17,7 @@ public class Collections {
     static private ArrayList<String> strings;
 
     Collections() {
+	//
     }
 
     void collect(StringBuilder str) {
