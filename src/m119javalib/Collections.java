@@ -16,6 +16,7 @@ public class Collections {
     static private ArrayList<String> comments = new ArrayList<String>();
     static private ArrayList<String> strings = new ArrayList<String>();
     
+    
 
     Collections() {
 	//
