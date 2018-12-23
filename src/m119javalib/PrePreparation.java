@@ -25,8 +25,10 @@ public class PrePreparation {
     static private Pattern p_cmulti = Pattern.compile("\\*/", Pattern.MULTILINE);
     //строка
     static private Pattern p_string = Pattern.compile("[^\\\\]\"", Pattern.MULTILINE);
+    //возврат "текстовых данных"
+    static Pattern p_retext = Pattern.compile("Ⓣ(\\d+)Ⓣ", Pattern.MULTILINE);
 
-    static void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
+    static synchronized void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
 	Matcher m_start = p_start.matcher(s);
 	Matcher m_csingle = p_csingle.matcher(s);
 	Matcher m_cmulti = p_cmulti.matcher(s);
@@ -44,35 +46,42 @@ public class PrePreparation {
 		case "//":
 		    current = m_start.start();
 		    start = current;
-		    m_csingle.find(current + m_start.group().length());
+		    m_csingle.find(current);
 		    end = m_csingle.end();
 		    com.add(s.substring(start, end));
-		    s.replace(start, end, "Ⓒ" + com.size() + "Ⓒ");
+		    s.replace(start, end, "Ⓒ" + (com.size()-1) + "Ⓒ");
 		    break;
 		case "/*":
 		    current = m_start.start();
 		    start = current;
-		    m_cmulti.find(current + m_start.group().length());
+		    m_cmulti.find(current);
 		    end = m_cmulti.end();
 		    com.add(s.substring(start, end));
-		    s.replace(start, end, "Ⓒ" + com.size() + "Ⓒ");
+		    s.replace(start, end, "Ⓒ" + (com.size()-1) + "Ⓒ");
 		    break;
 		case "\"":
 		    current = m_start.start();
 		    start = current;
-		    m_string.find(current + m_start.group().length());
+		    m_string.find(current);
 		    end = m_string.end();
 		    str.add(s.substring(start, end));
-		    s.replace(start, end, "Ⓣ" + str.size() + "Ⓣ");
+		    s.replace(start, end, "Ⓣ" + (str.size()-1) + "Ⓣ");
 		    break;
 		default:
 		    break;
 	    }
 	    //System.out.println(s.substring(start, end));
 	}
+    };
+    
+    static synchronized void returnTexts(StringBuilder sb, ArrayList<String> str){
+	Matcher m_retext = p_retext.matcher(sb);
+	while (m_retext.find()) {
+	    
+	    sb.replace(m_retext.start(), m_retext.end(), str.get(Integer.parseInt(m_retext.group(1))));
+	
+	}
     }
-
-    ;
 	
 	//тестовый метод
 	void tcollect(StringBuilder s) {

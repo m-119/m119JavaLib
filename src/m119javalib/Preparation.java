@@ -11,18 +11,15 @@ package m119javalib;
  */
 public class Preparation {
     
-    static public void run(StringBuilder s){
-	s.replace(0, s.length(),
-	    s.toString().replaceAll("(\\p{Punct})", " $1 ") 
+    static public void run(StringBuilder sb){
+	sb.replace(0, sb.length(),
+	    sb.toString().replaceAll("(\\p{Punct})", " $1 ") 
 	    .replaceAll("(?m)(^[ \\t\\x0B\\f]*|[ \\t\\x0B\\f]*$)", " ") 
-	    .replaceAll("[ \\t\\x0B\\f]+", " ") 
+	    .replaceAll("(?m)[ \\t\\x0B\\f]+", " ") 
 	    .replaceAll("([^\\n]) (\\{|})", "$1 \n $2") 
 	    .replaceAll("(\\{|}) ([^\\n])", "$1 \n $2") 
 	    .replaceAll("( \\n)+", " \n"));
-	
-	    
     }
-    
     static public void run(String s){
 	s = s.toString().replaceAll("(\\p{Punct})", " $1 ") 
 	    .replaceAll("(?m)(^[ \\t\\x0B\\f]*|[ \\t\\x0B\\f]*$)", " ") 
@@ -31,7 +28,9 @@ public class Preparation {
 	    .replaceAll("(\\{|}) ([^\\n])", "$1 \n $2") 
 	    .replaceAll("( \\n)+", " \n");
     }
-    
+    static public String[] split(String s){
+	return s.split(" ");
+    }
     Preparation(){}
     
 }
