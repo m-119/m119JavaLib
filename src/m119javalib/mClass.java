@@ -4,14 +4,20 @@
  * and open the template in the editor.
  */
 
-import java.lang.reflect.Modifier;
-
 package m119javalib;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author JAG
  */
 public class mClass {
+    
+    String name = "";
+    String pack = "";
+    ArrayList <mModifiers> Mods = new ArrayList <mModifiers>();
+    
+    
     
 }
