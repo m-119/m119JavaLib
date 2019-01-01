@@ -18,25 +18,31 @@ public class PrePreparation {
 
     //паттерны
     //начальная позиция
-    static private Pattern p_start = Pattern.compile("(//|/\\*|\")", Pattern.MULTILINE);
+    private Pattern p_start = Pattern.compile("(//|/\\*|\")", Pattern.MULTILINE);
     //однострочный комментарий
-    static private Pattern p_csingle = Pattern.compile("[^\\\\]\n", Pattern.MULTILINE);
+    private Pattern p_csingle = Pattern.compile("[^\\\\]\n", Pattern.MULTILINE);
     //многострочный комментарий
-    static private Pattern p_cmulti = Pattern.compile("\\*/", Pattern.MULTILINE);
+    private Pattern p_cmulti = Pattern.compile("\\*/", Pattern.MULTILINE);
     //строка
-    static private Pattern p_string = Pattern.compile("[^\\\\]\"", Pattern.MULTILINE);
+    private Pattern p_string = Pattern.compile("[^\\\\]\"", Pattern.MULTILINE);
     //возврат "текстовых данных"
-    static Pattern p_retext = Pattern.compile("Ⓣ(\\d+)Ⓣ", Pattern.MULTILINE);
+    private Pattern p_retext = Pattern.compile("Ⓣ(\\d+)Ⓣ", Pattern.MULTILINE);
+    
+    PrePreparation() {
+	
+    };
 
-    static synchronized void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
+    synchronized void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
 	Matcher m_start = p_start.matcher(s);
 	Matcher m_csingle = p_csingle.matcher(s);
 	Matcher m_cmulti = p_cmulti.matcher(s);
 	Matcher m_string = p_string.matcher(s);
 
+	// текущая позиция
 	int current = 0;
-
+	// начальная позиция
 	int start = 0;
+	// окончательная позиция
 	int end = 0;
 
 	//собираем комментарии и тексты
@@ -74,21 +80,17 @@ public class PrePreparation {
 	}
     };
     
-    static synchronized void returnTexts(StringBuilder sb, ArrayList<String> str){
+    //Возвращение текстовых данных в код
+    synchronized void returnTexts(StringBuilder sb, ArrayList<String> str){
 	Matcher m_retext = p_retext.matcher(sb);
 	while (m_retext.find()) {
-	    
 	    sb.replace(m_retext.start(), m_retext.end(), str.get(Integer.parseInt(m_retext.group(1))));
-	
 	}
     }
 	
 	//тестовый метод
 	void tcollect(StringBuilder s) {
 
-    };
-	
-    PrePreparation() {
     };
 
 }

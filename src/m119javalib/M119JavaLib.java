@@ -18,18 +18,11 @@ public class M119JavaLib {
     
     M119JavaLib()
     {
-		// TODO code application logic here
-	PrePreparation pt = new PrePreparation();
-	Preparation t = new Preparation();
 	Collections c = new Collections();
 	
-	StringBuilder sb = new StringBuilder(s);
+	c.collect(s);
 	
-	PrePreparation.collect(sb, c.getComments(), c.getStrings());
-	Preparation.run(sb);
-	PrePreparation.returnTexts(sb,c.getStrings());
-	
-	System.out.print(sb.toString());
+	//System.out.print(sb.toString());
     }
     
     public static void  main(String[] args) {

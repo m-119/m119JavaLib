@@ -14,10 +14,43 @@ import java.util.ArrayList;
  */
 public class mClass {
     
+    //имя
     String name = "";
     String pack = "";
-    ArrayList <mModifiers> Mods = new ArrayList <mModifiers>();
+    ArrayList <mModifier> Mods = new ArrayList <mModifier>();
+    ArrayList <mMethod> Methods = new ArrayList <mMethod>();
     
+    //определение имени
+    public void setName (String str)
+    {
+	this.name = str;
+    }
     
+    //package "xxx"
+    //определение пакета
+    public void setPackage (String str)
+    {
+	this.pack = str;
+    }
     
+    //package "xxx"+"."+"xxx"
+    //добавление к определению пакета
+    public void addPackage (String str)
+    {
+	this.pack.concat(str);
+    }
+    
+    //import "xxx"
+    //определение импорта
+    public void setImport (String str)
+    {
+	this.pack = str;
+    }
+    
+    //import "xxx"+"."+"xxx"
+    //добавление к определению импорта
+    public void addImport (String str)
+    {
+	this.pack.concat(str);
+    }
 }

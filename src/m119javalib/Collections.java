@@ -15,30 +15,52 @@ public class Collections {
 
     static private ArrayList<String> comments = new ArrayList<String>();
     static private ArrayList<String> strings = new ArrayList<String>();
+    static private ArrayList<String> types = new ArrayList<String>();
+    static
+
+    //предподготовка
+    private PrePreparation pt = new PrePreparation();
+    //подготовка
+    private Preparation p = new Preparation();
+    //коллекционирование
+    private Collections c = this;
     
     
 
     Collections() {
-	//
+	
+    }
+    
+    public void collect(StringBuilder strb) {
+	//предподготовка
+	pt.collect(strb, c.getComments(), c.getStrings());
+	//подготовка
+	p.run(strb);
+	//возврат строк в текст
+	pt.returnTexts(strb, c.getStrings());
+	
+	//trace
+	System.out.print(strb.toString());
+    }
+    
+    public void collect(String str) {
+	StringBuilder sb = new StringBuilder(str);
+	collect(sb);
     }
 
-    void collect(StringBuilder str) {
-
-    }
-
-    static public String getComment(int i) {
+    public String getComment(int i) {
 	return comments.get(i);
     }
 
-    static public ArrayList<String> getComments() {
+    public ArrayList<String> getComments() {
 	return comments;
     }
 
-    static String getString(int i) {
+    String getString(int i) {
 	return strings.get(i);
     }
 
-    static ArrayList<String> getStrings() {
+    ArrayList<String> getStrings() {
 	return strings;
     }
 

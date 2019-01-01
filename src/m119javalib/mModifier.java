@@ -5,11 +5,13 @@
  */
 package m119javalib;
 
+
+import java.lang.reflect.Method;
 /**
  *
  * @author JAG
  */
-public class mModifiers {
+public class mModifier {
     
     int Modifier = 0;
     
