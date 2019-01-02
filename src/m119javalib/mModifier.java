@@ -6,7 +6,6 @@
 package m119javalib;
 
 
-import java.lang.reflect.Method;
 /**
  *
  * @author JAG
@@ -116,7 +115,7 @@ public class mModifier {
 		Modifier = Modifier|STRICT;
 		break;
 		default:
-		    return false;
+		return false;
 		
 	}
 	return true;

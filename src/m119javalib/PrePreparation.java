@@ -32,7 +32,7 @@ public class PrePreparation {
 	
     };
 
-    synchronized void collect(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
+    synchronized void run(StringBuilder s, ArrayList<String> com, ArrayList<String> str) {
 	Matcher m_start = p_start.matcher(s);
 	Matcher m_csingle = p_csingle.matcher(s);
 	Matcher m_cmulti = p_cmulti.matcher(s);
@@ -54,7 +54,7 @@ public class PrePreparation {
 		    start = current;
 		    m_csingle.find(current);
 		    end = m_csingle.end();
-		    com.add(s.substring(start, end));
+		    com.add(s.substring(start, end).replaceAll("\n *\\* *\n", "\n").replaceAll("\n( *|\\*)", "").replaceAll("^\\/*\\** *", ""));
 		    s.replace(start, end, "Ⓒ" + (com.size()-1) + "Ⓒ");
 		    break;
 		case "/*":
@@ -62,7 +62,7 @@ public class PrePreparation {
 		    start = current;
 		    m_cmulti.find(current);
 		    end = m_cmulti.end();
-		    com.add(s.substring(start, end));
+		    com.add(s.substring(start, end).replaceAll("\n *\\* *\n", "\n").replaceAll("\n( *|\\*)", "").replaceAll("(^\\/*\\** *| *\\**\\/*$)", ""));
 		    s.replace(start, end, "Ⓒ" + (com.size()-1) + "Ⓒ");
 		    break;
 		case "\"":

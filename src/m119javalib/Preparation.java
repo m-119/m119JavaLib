@@ -31,6 +31,9 @@ public class Preparation {
     public String[] split(String s){
 	return s.split(" ");
     }
+    public String[] split(StringBuilder s){
+	return s.toString().split(" ");
+    }
     Preparation(){}
     
 }
