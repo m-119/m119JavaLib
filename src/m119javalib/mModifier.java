@@ -12,113 +12,128 @@ package m119javalib;
  */
 public class mModifier {
     
-    int Modifier = 0;
+    private int mod = 0;
     
 // public
-    static final int PUBLIC           = 0x00000001;
+    private static final int PUBLIC           = 0x00000001;
 // private
-    static final int PRIVATE          = 0x00000002;
+    private static final int PRIVATE          = 0x00000002;
 // protected
-    static final int PROTECTED        = 0x00000004;
+    private static final int PROTECTED        = 0x00000004;
 // static
-    static final int STATIC           = 0x00000008;
+    private static final int STATIC           = 0x00000008;
 // final
-    static final int FINAL            = 0x00000010;
+    private static final int FINAL            = 0x00000010;
 // synchronized
-    static final int SYNCHRONIZED     = 0x00000020;
+    private static final int SYNCHRONIZED     = 0x00000020;
 // volatile
-    static final int VOLATILE         = 0x00000040;
+    private static final int VOLATILE         = 0x00000040;
 // transient
-    static final int TRANSIENT        = 0x00000080;
+    private static final int TRANSIENT        = 0x00000080;
 // native
-    static final int NATIVE           = 0x00000100;
+    private static final int NATIVE           = 0x00000100;
 // interface
-    static final int INTERFACE        = 0x00000200;
+    private static final int INTERFACE        = 0x00000200;
 // abstract
-    static final int ABSTRACT         = 0x00000400;
+    private static final int ABSTRACT         = 0x00000400;
 // strictfp
-    static final int STRICT           = 0x00000800;
-    
-// The Java source modifiers that can be applied to a class.
-     static final int CLASS_MODIFIERS =
-        PUBLIC         | PROTECTED    | PRIVATE |
-        ABSTRACT       | STATIC       | FINAL   |
-        STRICT;
-// The Java source modifiers that can be applied to an interface.
-     static final int INTERFACE_MODIFIERS =
-        PUBLIC         | PROTECTED    | PRIVATE |
-        ABSTRACT       | STATIC       | STRICT;
-// The Java source modifiers that can be applied to a constructor.
-     static final int CONSTRUCTOR_MODIFIERS =
-        PUBLIC         | PROTECTED    | PRIVATE;
-// The Java source modifiers that can be applied to a method.
-     static final int METHOD_MODIFIERS =
-        PUBLIC         | PROTECTED    | PRIVATE |
-        ABSTRACT       | STATIC       | FINAL   |
-        SYNCHRONIZED   | NATIVE       | STRICT;
-// The Java source modifiers that can be applied to a field.
-     static final int FIELD_MODIFIERS =
-        PUBLIC         | PROTECTED    | PRIVATE |
-        STATIC         | FINAL        | TRANSIENT |
-        VOLATILE;
-// The Java source modifiers that can be applied to a method or constructor parameter.
-     static final int PARAMETER_MODIFIERS =
-        FINAL;
-//
-    static final int ACCESS_MODIFIERS =
-        PUBLIC | PROTECTED | PRIVATE;
+    private static final int STRICT           = 0x00000800;
 
     // прочие
-    static final int BRIDGE    = 0x00000040;
-    static final int VARARGS   = 0x00000080;
-    static final int SYNTHETIC = 0x00001000;
-    static final int ANNOTATION  = 0x00002000;
-    static final int ENUM      = 0x00004000;
-    static final int MANDATED  = 0x00008000;
+    private static final int BRIDGE    = 0x00000040;
+    private static final int VARARGS   = 0x00000080;
+    private static final int SYNTHETIC = 0x00001000;
+    private static final int ANNOTATION  = 0x00002000;
+    private static final int ENUM      = 0x00004000;
+    private static final int MANDATED  = 0x00008000;
     
     public boolean set(String s) {
 	switch (s) {
 	    case "public":
-		Modifier = Modifier|PUBLIC;
+		mod = mod|PUBLIC;
 		break;
 		case "private":
-		Modifier = Modifier|PRIVATE;
+		mod = mod|PRIVATE;
 		break;
 		case "protected":
-		Modifier = Modifier|PROTECTED;
+		mod = mod|PROTECTED;
 		break;
 		case "static":
-		Modifier = Modifier|STATIC;
+		mod = mod|STATIC;
 		break;
 		case "final":
-		Modifier = Modifier|FINAL;
+		mod = mod|FINAL;
 		break;
 		case "synchronized":
-		Modifier = Modifier|SYNCHRONIZED;
+		mod = mod|SYNCHRONIZED;
 		break;
 		case "volatile":
-		Modifier = Modifier|VOLATILE;
+		mod = mod|VOLATILE;
 		break;
 		case "transient":
-		Modifier = Modifier|TRANSIENT;
+		mod = mod|TRANSIENT;
 		break;
 		case "native":
-		Modifier = Modifier|NATIVE;
+		mod = mod|NATIVE;
 		break;
 		case "interface":
-		Modifier = Modifier|INTERFACE;
+		mod = mod|INTERFACE;
 		break;
 		case "abstract":
-		Modifier = Modifier|ABSTRACT;
+		mod = mod|ABSTRACT;
 		break;
 		case "strictfp":
-		Modifier = Modifier|STRICT;
+		mod = mod|STRICT;
 		break;
 		default:
 		return false;
 		
 	}
 	return true;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        if ((mod & PUBLIC) != 0)        sb.append("public ");
+        if ((mod & PROTECTED) != 0)     sb.append("protected ");
+        if ((mod & PRIVATE) != 0)       sb.append("private ");
+
+        /* Canonical order */
+        if ((mod & ABSTRACT) != 0)      sb.append("abstract ");
+        if ((mod & STATIC) != 0)        sb.append("static ");
+        if ((mod & FINAL) != 0)         sb.append("final ");
+        if ((mod & TRANSIENT) != 0)     sb.append("transient ");
+        if ((mod & VOLATILE) != 0)      sb.append("volatile ");
+        if ((mod & SYNCHRONIZED) != 0)  sb.append("synchronized ");
+        if ((mod & NATIVE) != 0)        sb.append("native ");
+        if ((mod & STRICT) != 0)        sb.append("strictfp ");
+        if ((mod & INTERFACE) != 0)     sb.append("interface ");
+
+        if (sb.length() > 0)    /* trim trailing space */
+            return sb.toString().substring(0, sb.length()-1);
+        return "";
+    }
+    
+    public boolean is(spec e)
+    {
+	switch (e){
+	case PUBLIC:	if((PUBLIC&mod)==PUBLIC) return true;
+	case PRIVATE:	if((PRIVATE&mod)==PRIVATE) return true;
+	case PROTECTED:	if((PROTECTED&mod)==PROTECTED) return true;
+	case STATIC:	if((STATIC&mod)==STATIC) return true;
+	case FINAL:	if((FINAL&mod)==FINAL) return true;
+	case SYNCHRONIZED:	if((SYNCHRONIZED&mod)==SYNCHRONIZED) return true;
+	case VOLATILE:	if((VOLATILE&mod)==VOLATILE) return true;
+	case TRANSIENT:	if((TRANSIENT&mod)==TRANSIENT) return true;
+	case NATIVE:	if((NATIVE&mod)==NATIVE) return true;
+	case INTERFACE:	if((INTERFACE&mod)==INTERFACE) return true;
+	case ABSTRACT:	if((ABSTRACT&mod)==ABSTRACT) return true;
+	case STRICT:	if((STRICT&mod)==STRICT) return true;
+	default:  return false;
+	}
+	
     }
     
 }

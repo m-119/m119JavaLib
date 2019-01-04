@@ -9,6 +9,8 @@ package m119javalib;
  *
  * @author JAG
  */
+
+
 public class mProperty {
     private String name = "";
     private String type = "";
@@ -41,6 +43,26 @@ public class mProperty {
     public void setModifier (mModifier m)
     {
 	this.mod = m; m = new mModifier();
+    }
+    
+    public String toString(spec ... s)
+    {
+	StringBuilder sb = new StringBuilder("");
+	for(spec e:s)
+	{
+	    switch(e)
+	    {
+		case NAME: sb.append(name);
+		case TYPE: sb.append(type);
+		case MODIFIER: sb.append(mod.toString());
+	    }
+	}
+	return sb.toString();
+    }
+    
+    public boolean is(spec s)
+    {
+	return mod.is(s);
     }
     
 }

@@ -18,13 +18,20 @@ public class mClass {
     String name = "";
     String pack = "";
     String extend = "";
-    String implement = "";
     mModifier mods = new mModifier();
+    
+    boolean haveConstructors = false;
+    boolean haveMethods = false;
+    
+    public void haveConstructors(boolean set) {haveConstructors = set;}
+    public boolean haveConstructors() {return haveConstructors;}
+    public void haveMethods(boolean set){haveMethods = set;}
+    public boolean haveMethods(){return haveMethods;}
     
     ArrayList <StringBuilder> imports = new ArrayList <StringBuilder>();
     ArrayList <mMethod> methods = new ArrayList <mMethod>();
     ArrayList <mProperty> properties = new ArrayList <mProperty>();
-    
+    ArrayList <StringBuilder> implement = new ArrayList <StringBuilder>();
     mClass(String str)
     {
 	this.name = str;
@@ -40,12 +47,12 @@ public class mClass {
     
     public void setImplement(String str)
     {
-	this.implement = str;
+	this.implement.add(new StringBuilder(str));
     }
     
     public void addImplement(String str)
     {
-	this.implement += str;
+	this.implement.get(implement.size()-1).append(str);
     }
     
     public void setExtend(String str)
@@ -126,7 +133,34 @@ public class mClass {
     
     @Override
     public String toString() {
+	
 	StringBuilder sb = new StringBuilder();
 	return sb.toString().substring(0, sb.length()-1);
+    }
+    
+    public String toString(spec ... s)
+    {
+	StringBuilder sb = new StringBuilder("");
+	for(spec e:s)
+	{
+	    switch(e)
+	    {
+		case NAME: sb.append(name); break;
+		case PACKAGE: sb.append(pack); break;
+		case MODIFIER: sb.append(mods); break;
+		case IMPORT: for(int i=0;i<imports.size();i++) sb.append(" "+imports.get(i)); break;
+		case EXTENDS: sb.append(" "+extend); break;
+		case IMPLEMENTS: for(int i=0;i<imports.size();i++) sb.append("\n"+implement.get(i)); break;
+		
+		case METHODS: for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString());} break;
+		case METHODS_NAME: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.NAME));} break;
+		case METHODS_TYPE: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.TYPE));} break;
+		case METHODS_RETURN: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.RETURN));} break;
+		case METHODS_MODIFIER: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.MODIFIER));} break;
+		case METHODS_ARGUMENT: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.ARGUMENT));} break;
+		case METHODS_CONTENT: 	for(int i=0;i<methods.size();i++) {sb.append(" "+methods.get(i).toString(e.CONTENT));} break;
+	    }
+	}
+	return sb.toString();
     }
 }
