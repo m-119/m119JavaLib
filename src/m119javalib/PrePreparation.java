@@ -16,6 +16,11 @@ import java.util.regex.Pattern;
  */
 public class PrePreparation {
 
+    //https://unicode-table.com/ru/#24A5
+    //24A0
+    //⒮Ⓢ
+    //⒯Ⓣ
+    //⒞Ⓒ
     //паттерны
     //начальная позиция
     private Pattern p_start = Pattern.compile("(//|/\\*|\")", Pattern.MULTILINE);
@@ -85,6 +90,13 @@ public class PrePreparation {
 	Matcher m_retext = p_retext.matcher(sb);
 	while (m_retext.find()) {
 	    sb.replace(m_retext.start(), m_retext.end(), str.get(Integer.parseInt(m_retext.group(1))));
+	}
+    }
+    
+    //Возвращение текстовых данных в код
+    synchronized void returnTexts(String[] s, ArrayList<String> str){
+	for (int i = 0; i < s.length;i++) {
+	    if(s[i].startsWith("Ⓣ")&s[i].endsWith("Ⓣ")){s[i] = str.get(Integer.parseInt(s[i].substring(1, s[i].length()-1)));}
 	}
     }
 	

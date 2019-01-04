@@ -12,13 +12,19 @@ package m119javalib;
 public class Preparation {
     
     public void run(StringBuilder sb){
-	sb.replace(0, sb.length(),
+	sb.replace(0, sb.length()-1,
 	    sb.toString().replaceAll("(\\p{Punct})", " $1 ") 
 	    .replaceAll("(?m)(^[ \\t\\x0B\\f]*|[ \\t\\x0B\\f]*$)", " ") 
 	    .replaceAll("(?m)[ \\t\\x0B\\f]+", " ") 
 	    .replaceAll("([^\\n]) (\\{|})", "$1 \n $2") 
 	    .replaceAll("(\\{|}) ([^\\n])", "$1 \n $2") 
-	    .replaceAll("( \\n)+", " \n"));
+	    .replaceAll("( \\n)+", " \n")
+	//корректировки возникшие по ходу написания:
+		.replaceAll(" (<|\\[|>|]) ", "$1") //ArrayList<String>();
+		
+		
+	);
+	
     }
     public void run(String s){
 	s = s.toString().replaceAll("(\\p{Punct})", " $1 ") 
@@ -26,7 +32,10 @@ public class Preparation {
 	    .replaceAll("[ \\t\\x0B\\f]+", " ") 
 	    .replaceAll("([^\\n]) (\\{|})", "$1 \n $2") 
 	    .replaceAll("(\\{|}) ([^\\n])", "$1 \n $2") 
-	    .replaceAll("( \\n)+", " \n");
+	    .replaceAll("( \\n)+", " \n")
+	    //корректировки возникшие по ходу написания:
+		.replaceAll(" (<|>) ", "$1")
+		;
     }
     public String[] split(String s){
 	return s.split(" ");
